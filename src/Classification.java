@@ -68,14 +68,17 @@ public class Classification {
                 // Écrire l'id de la dépêche et la catégorie
                 writer.write(depeche.getId() + ":" + depeche.getCategorie() + "\n");
 
+                ArrayList<PaireChaineEntier> total = new ArrayList<>();
+
                 // Calcul du pourcentage pour chaque catégorie
                 for (PaireChaineEntier paire : scores) {
                     float pourcentage = ((float) paire.getEntier() / totalScore) * 100;
-                    writer.write(paire.getChaine() + ": " + Math.round(pourcentage) + "%\n");
+                    total.add(new PaireChaineEntier(paire.getChaine(), Math.round(pourcentage)));
+                    writer.write(paire.getChaine() + ": " + pourcentage + "%\n");
                 }
 
                 // Écrire la moyenne pour chaque dépêche
-                float moyenne = UtilitairePaireChaineEntier.moyenne(scores);
+                float moyenne = UtilitairePaireChaineEntier.moyenne(total);
                 writer.write("MOYENNE : " + moyenne + "%\n");
                 writer.write("\n");
             }
@@ -93,10 +96,39 @@ public class Classification {
     }
 
     public static void calculScores(ArrayList<Depeche> depeches, String categorie, ArrayList<PaireChaineEntier> dictionnaire) {
+        for(Depeche d : depeches){
+            boolean presCat = d.getCategorie().equals(categorie);
+
+
+            for(String mot : d.getMots()){
+                int i = UtilitairePaireChaineEntier.indicePourChaine(dictionnaire, categorie);
+
+                if(i !=-1){
+                    PaireChaineEntier p = dictionnaire.get(i);
+                    int score = p.getEntier();
+                    if(presCat){
+                        score++;
+                    }
+                    else{
+                        score--;
+                    }
+                    PaireChaineEntier nvl = new PaireChaineEntier(p.getChaine(), score);
+                    dictionnaire.set(i, nvl);
+                }
+            }
+        }
     }
 
     public static int poidsPourScore(int score) {
-        return 0;
+        if(score>10){
+            return 3;
+        }
+        else if(score>5){
+            return 2;
+        }
+        else{
+            return 1;
+        }
     }
 
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {

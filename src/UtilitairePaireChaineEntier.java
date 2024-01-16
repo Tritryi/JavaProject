@@ -2,12 +2,13 @@ import java.util.ArrayList;
 
 public class UtilitairePaireChaineEntier {
     public static int indicePourChaine(ArrayList<PaireChaineEntier> listePaires, String chaine) {
-        for (PaireChaineEntier paire : listePaires) {
+        for (int i = 0; i < listePaires.size(); i++) {
+            PaireChaineEntier paire = listePaires.get(i);
             if (paire.getChaine().equals(chaine)) {
-                return paire.getEntier();
+                return i; // Retourne l'indice de chaine dans listePaires
             }
         }
-        return -1;
+        return -1; // Si chaine n'est pas présente, retourne -1
     }
 
     public static int entierPourChaine(ArrayList<PaireChaineEntier> listePaires, String chaine) {
@@ -37,12 +38,21 @@ public class UtilitairePaireChaineEntier {
         if (listePaires.isEmpty()) {
             return 0; // Si la liste est vide, la moyenne est 0 pour éviter une division par zéro
         }
-        int somme = 0;
-        int nombreCategories = listePaires.size();
+
+        float somme = 0;
+        int diviseur = 0;
 
         for (PaireChaineEntier paire : listePaires) {
-            somme += paire.getEntier();
+            if (paire.getEntier() != 0) {
+                somme += paire.getEntier();
+                diviseur++;
+            }
         }
-        return ((float) somme / nombreCategories)*100;
+
+        if (diviseur == 0) {
+            return 0;
+        } else {
+         return somme / diviseur;
+        }
     }
 }
