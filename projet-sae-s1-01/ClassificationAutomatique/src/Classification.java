@@ -168,7 +168,7 @@ public class Classification {
 
     // Méthode de génération d'un lexique d'une catégorie selon le dictionnaire créé au préalable. Attribut un poids à chaque mot du lexique
     public static void generationLexique(ArrayList<Depeche> depeches, String categorie, String nomFichier) {
-        ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, categorie, "MotsVide.txt"); // Inclus la gestion de mots vide selon le besoin de précision
+        ArrayList<PaireChaineEntier> dictionnaire = initDico(depeches, categorie, "MotsVide.txt"); // Inclus la gestion de mots vide selon le besoin de précision (à compléter au fur et à mesure)
         calculScores(depeches, categorie, dictionnaire); // Mise à jour des scores dans le dictionnaire
         try {
             FileWriter writer = new FileWriter(nomFichier);
