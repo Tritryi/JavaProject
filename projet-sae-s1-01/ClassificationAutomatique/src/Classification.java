@@ -227,7 +227,10 @@ public class Classification {
     // Main, affichage et exécution de l'ensemble des méthodes. Mise en application
     public static void main(String[] args) {
         System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━•| ⊱▲⊰ |•━━━━━━━━━━━━━━━━━━━━━━━━━┓");
-        System.out.println("\nChargement des dépêches \n"); // Chargement des dépêches en mémoire
+        System.out.println("\nChargement des dépêches...\n"); // Chargement des dépêches en mémoire
+        System.out.println("██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 10%\n");
+        System.out.println("██████████▒▒▒▒▒▒▒▒▒▒ 50%\n");
+        System.out.println("████████████████████ 100%\n");
         ArrayList<Depeche> depeches = lectureDepeches("./depeches.txt");
         System.out.println("|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|\n");
 
@@ -260,12 +263,12 @@ public class Classification {
         ArrayList<PaireChaineEntier> score = new ArrayList<>();
 
         // Choix par l'utilisateur de tout afficher ou alors d'afficher le minimum pour une meilleure lisibilité
-        System.out.print("Appuyez 'E' pour la version étendue ou sur une autre touche pour la version raccourcis : ");
+        System.out.print("Appuyez 'E' pour afficher les dépêches de depeches.txt ou sur une autre touche pour passer à la question suivante : ");
         choix = lecteur.next().toUpperCase().charAt(0);
         lecteur.nextLine();
         System.out.println();
         if (Character.toUpperCase(choix) == 'E') {
-            System.out.println("Passage à la version longue.");
+            System.out.println("Affichage des dépêches de depeches.txt.");
             System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|\n");
             //Afficher toutes les dépêches
             for (int i = 0; i < depeches.size(); i++) {
@@ -276,7 +279,7 @@ public class Classification {
                 afficherLexique(categorie);
             }
         } else {
-            System.out.println("Passage à la version raccourcis.");
+            System.out.println("Passage à l'étape suivante.");
         }
 
         // Saisie d'un mot présent dans le lexique par l'utilisateur
@@ -302,7 +305,7 @@ public class Classification {
             }
             iddepeche = lecteur.nextInt();
             if (iddepeche < 0 || iddepeche > 499) {
-                System.out.print("\nL'ID de dépêche doit être entre 0 et 499. Réessayez : ");
+                System.out.print("\nL'ID de dépêche doit être compris entre 0 et 499. Réessayez : ");
             }
         } while (iddepeche < 0 || iddepeche > 499);
         System.out.println();
@@ -332,20 +335,41 @@ public class Classification {
             choix = lecteur.next().toUpperCase().charAt(0);
             lecteur.nextLine();
             System.out.println();
-
             if (Character.toUpperCase(choix) == 'D') {
-                System.out.println("Aucun changement sur les dépêches \n");
+                System.out.println("Aucun changement sur les dépêches.\n");
                 System.out.println("Passage des Tests sur le fichier depeches.txt.");
                 System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
             } else if (Character.toUpperCase(choix) == 'T') {
-                System.out.println("Chargement des nouvelles dépêches \n"); // Changement des dépêches en mémoire
+                System.out.println("Chargement des nouvelles dépêches...\n"); // Changement des dépêches en mémoire
+                System.out.println("██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒ 10%\n");
+                System.out.println("██████████▒▒▒▒▒▒▒▒▒▒ 50%\n");
+                System.out.println("████████████████████ 100%\n");
                 depeches = lectureDepeches("./test.txt");
                 System.out.println("Passage des Tests sur le fichier test.txt.");
-                System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+                System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|\n");
             } else {
-                System.out.println("Saisie invalide");
+                System.out.println("Saisie invalide.");
             }
         } while (Character.toUpperCase(choix) != 'D' && Character.toUpperCase(choix) != 'T');
+
+        // Choix par l'utilisateur d'afficher les dépêches de test.txt ou alors de passer à l'étape suivante
+        if (choix == 'T') {
+            System.out.print("Appuyez 'E' pour afficher les dépêches de text.txt ou sur une autre touche pour passer à la question suivante : ");
+            choix = lecteur.next().toUpperCase().charAt(0);
+            lecteur.nextLine();
+            System.out.println();
+            if (Character.toUpperCase(choix) == 'E') {
+                System.out.println("Affichage des dépêches de test.txt.");
+                System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|\n");
+                //Afficher toutes les dépêches
+                for (int i = 0; i < depeches.size(); i++) {
+                    depeches.get(i).afficher();
+                }
+            } else {
+                System.out.println("Passage à l'étape suivante.");
+                System.out.println("\n|━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━|");
+            }
+        }
 
         // Choix par l'utilisateur d'afficher les résultats générés par les lexiques créés de façon manuels ou de façon par apprentissage automatique
         do {
